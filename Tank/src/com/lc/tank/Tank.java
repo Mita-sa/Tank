@@ -6,11 +6,14 @@ public class Tank {
 
 	// 坦克坐标
 	private int x, y;
+	// 坦克方向
 	private Dir dir = Dir.RIGHT;
 	// 坦克速度
-	private static final int SPEED = 10;
+	private static final int SPEED = 5;
 	// 是否移动
 	private boolean moving = false;
+	
+	private TankFrame tf;
 
 	// 上下左右操作
 	public void paint(Graphics g) {
@@ -43,6 +46,10 @@ public class Tank {
 			break;
 		}
 	}
+
+	public void fire() {
+		tf.b = new Bullet(x, y, dir);
+	}
 	
 	public boolean isMoving() {
 		return moving;
@@ -56,11 +63,12 @@ public class Tank {
 		super();
 	}
 
-	public Tank(int x, int y, Dir dir) {
+	public Tank(int x, int y, Dir dir, TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tf = tf;
 	}
 
 	public int getX() {
