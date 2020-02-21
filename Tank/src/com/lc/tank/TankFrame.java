@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-	Tank t = new Tank(200,200,Dir.RIGHT);
+	Tank t = new Tank(350, 250, Dir.RIGHT);
 
 	public TankFrame() {
 		// 可见
@@ -20,11 +20,8 @@ public class TankFrame extends Frame {
 		setTitle("TankWar");
 		// 縮放
 		setResizable(false);
-
 		addKeyListener(new MyKeyListener());
-
 		addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				super.windowClosing(e);
@@ -47,7 +44,7 @@ public class TankFrame extends Frame {
 		boolean bU = false;
 		boolean bR = false;
 		boolean bD = false;
-		
+
 		// 键盘按下
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -56,19 +53,19 @@ public class TankFrame extends Frame {
 			switch (key) {
 			case KeyEvent.VK_LEFT:
 				bL = true;
-//				System.out.println("VK_LEFT");
+				// System.out.println("VK_LEFT");
 				break;
 			case KeyEvent.VK_UP:
 				bU = true;
-//				System.out.println("VK_UP");
+				// System.out.println("VK_UP");
 				break;
 			case KeyEvent.VK_RIGHT:
 				bR = true;
-//				System.out.println("VK_RIGHT");
+				// System.out.println("VK_RIGHT");
 				break;
 			case KeyEvent.VK_DOWN:
 				bD = true;
-//				System.out.println("VK_DOWN");
+				// System.out.println("VK_DOWN");
 				break;
 			default:
 				break;
@@ -101,12 +98,23 @@ public class TankFrame extends Frame {
 		}
 
 		private void setMainTankDir() {
-			if(bL) t.setDir(Dir.LEFT);
-			if(bU) t.setDir(Dir.UP);
-			if(bR) t.setDir(Dir.RIGHT);
-			if(bD)  t.setDir(Dir.DOWN);
+			// 不属于任意一个方向就停止
+			if (!bL && !bU && !bR && !bD) {
+				t.setMoving(false);
+			}else{
+				// 否则开始移动
+				t.setMoving(true);
+				if (bL)
+					t.setDir(Dir.LEFT);
+				if (bU)
+					t.setDir(Dir.UP);
+				if (bR)
+					t.setDir(Dir.RIGHT);
+				if (bD)
+					t.setDir(Dir.DOWN);
+			}
 		}
-		
+
 	}
 
 }
