@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-	Tank t = new Tank(350, 250, Dir.RIGHT, this);
+	Tank t = new Tank(200, 200, Dir.RIGHT, this);
 	List<Bullet> bullets = new ArrayList<>();
 	// Bullet b = new Bullet(300, 300, Dir.DOWN);
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;

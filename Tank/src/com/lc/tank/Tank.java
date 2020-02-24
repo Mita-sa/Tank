@@ -11,6 +11,10 @@ public class Tank {
 	private Dir dir = Dir.RIGHT;
 	// 坦克速度
 	private static final int SPEED = 5;
+	
+	private static int WIDTH = ResourceMgr.tankD.getWidth();
+	private static int HEIGHT = ResourceMgr.tankD.getHeight();
+	
 	// 是否移动
 	private boolean moving = false;
 	
@@ -64,7 +68,9 @@ public class Tank {
 	}
 
 	public void fire() {
-		tf.bullets.add(new Bullet(x, y, dir, tf));
+		int bX = this.x + Tank.WIDTH-24 - Bullet.WIDTH;
+		int bY = this.y + Tank.HEIGHT-17 - Bullet.HEIGHT;
+		tf.bullets.add(new Bullet(bX, bY, dir, tf));
 	}
 	
 	public boolean isMoving() {

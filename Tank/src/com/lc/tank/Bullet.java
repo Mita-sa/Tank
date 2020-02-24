@@ -5,7 +5,8 @@ import java.awt.Graphics;
 
 public class Bullet {
 	private static final int SPEED = 10;
-	private static final int WIDTH = 10, HEIGHT = 10;
+	public static int WIDTH = ResourceMgr.bulletD.getWidth();
+	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 	// 存活
 	private boolean live = true;
 
