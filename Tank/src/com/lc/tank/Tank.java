@@ -1,5 +1,6 @@
 package com.lc.tank;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Tank {
@@ -17,10 +18,25 @@ public class Tank {
 
 	// 上下左右操作
 	public void paint(Graphics g) {
-		g.fillRect(x, y, 50, 50);
+		switch (dir) {
+		case LEFT:
+			g.drawImage(ResourceMgr.tankL, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceMgr.tankU, x, y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceMgr.tankR, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceMgr.tankD, x, y, null);
+			break;
+		default:
+			break;
+		}
+//		g.drawImage(ResourceMgr.tankL, x, y, null);
 		
 		move();
-		
 	}
 	
 	private void move(){
@@ -48,7 +64,7 @@ public class Tank {
 	}
 
 	public void fire() {
-		tf.b = new Bullet(x, y, dir);
+		tf.bullets.add(new Bullet(x, y, dir, tf));
 	}
 	
 	public boolean isMoving() {
