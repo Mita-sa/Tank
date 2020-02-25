@@ -16,6 +16,7 @@ public class TankFrame extends Frame {
 	Tank t = new Tank(300, 400, Dir.RIGHT, this,Group.GOOD);
 	List<Bullet> bullets = new ArrayList<>();
 	List<Tank> tanks = new ArrayList<>();
+	Explode explode = new Explode(100, 100, this);
 	
 	// Bullet b = new Bullet(300, 300, Dir.DOWN);
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
@@ -83,7 +84,8 @@ public class TankFrame extends Frame {
 				bullets.get(i).collideWith(tanks.get(j));
 			}
 		}
-		
+		// 爆炸
+		explode.paint(g);
 	}
 
 	// 键盘处理内部类
