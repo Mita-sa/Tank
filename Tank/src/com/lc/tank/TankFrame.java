@@ -13,8 +13,10 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-	Tank t = new Tank(200, 200, Dir.RIGHT, this);
+	Tank t = new Tank(300, 400, Dir.RIGHT, this,Group.GOOD);
 	List<Bullet> bullets = new ArrayList<>();
+	List<Tank> tanks = new ArrayList<>();
+	
 	// Bullet b = new Bullet(300, 300, Dir.DOWN);
 	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
@@ -61,16 +63,27 @@ public class TankFrame extends Frame {
 	public void paint(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.WHITE);
-		g.drawString("子弹数量:" + bullets.size(), 10, 60);
+		g.drawString("子弹的数量:" + bullets.size(), 10, 60);
+		g.drawString("敌方坦克数量:" + tanks.size(), 10, 80);
 		g.setColor(c);
 		
+		// 我方坦克
 		t.paint(g);
-		// for (Bullet b : bullets) {
-		// b.paint(g);
-		// }
+		// 子弹
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).paint(g);
 		}
+		// 敌方坦克
+		for (int i = 0; i < tanks.size(); i++) {
+			tanks.get(i).paint(g);
+		}
+		
+		for (int i = 0; i < bullets.size(); i++) {
+			for (int j = 0; j < tanks.size(); j++) {
+				bullets.get(i).collideWith(tanks.get(j));
+			}
+		}
+		
 	}
 
 	// 键盘处理内部类

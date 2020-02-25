@@ -2,13 +2,15 @@ package com.lc.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Bullet {
 	private static final int SPEED = 10;
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 	// 存活
-	private boolean live = true;
+	private boolean liveing = true;
+	private Group group = Group.BAD;
 
 	private int x, y;
 	private Dir dir;
@@ -37,7 +39,9 @@ public class Bullet {
 
 	// 子弹移动轨迹
 	private void move() {
-		if (!live) {
+		// 判断是否存活
+		if (!liveing) {
+			// 移除子弹-防止内存泄漏
 			tf.bullets.remove(this);
 		}
 		switch (dir) {
@@ -58,19 +62,50 @@ public class Bullet {
 			break;
 		}
 		if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-			live = false;
+			liveing = false;
 		}
 	}
 
-	public Bullet(int x, int y, Dir dir, TankFrame tf) {
+	public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.tf = tf;
+		this.group = group;
 	}
 
 	public Bullet() {
 		super();
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	// 碰撞检测
+	public void collideWith(Tank tank) {
+		// 判断是否是一队的
+		if (this.group == tank.getGroup()) {
+			return;
+		} else {
+			//TODO: 用一个rect来记录子弹的位置
+			// 获得子弹本身矩形
+			Rectangle rect1 = new Rectangle(x, y, WIDTH, HEIGHT);
+			Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
+			// 判断是否相交
+			if (rect1.intersects(rect2)) {
+				tank.die();
+				this.die();
+			}
+		}
+	}
+
+	private void die() {
+		this.liveing = false;
 	}
 }
