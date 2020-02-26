@@ -16,10 +16,11 @@ public class TankFrame extends Frame {
 	Tank t = new Tank(300, 400, Dir.RIGHT, this,Group.GOOD);
 	List<Bullet> bullets = new ArrayList<>();
 	List<Tank> tanks = new ArrayList<>();
-	Explode explode = new Explode(100, 100, this);
+	List<Explode> explodes = new ArrayList<>();
+	Explode e = new Explode(100, 100, this);
 	
 	// Bullet b = new Bullet(300, 300, Dir.DOWN);
-	static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
 	// 窗体页面
 	public TankFrame() {
@@ -31,6 +32,7 @@ public class TankFrame extends Frame {
 		setTitle("TankWar");
 		// 缩放
 		setResizable(false);
+		
 		addKeyListener(new MyKeyListener());
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -44,7 +46,6 @@ public class TankFrame extends Frame {
 
 	// 双缓冲解决：
 	Image offScreenImage = null;
-	
 	@Override
 	public void update(Graphics g) {
 		if (offScreenImage == null) {
@@ -66,26 +67,33 @@ public class TankFrame extends Frame {
 		g.setColor(Color.WHITE);
 		g.drawString("子弹的数量:" + bullets.size(), 10, 60);
 		g.drawString("敌方坦克数量:" + tanks.size(), 10, 80);
+		g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
 		g.setColor(c);
 		
 		// 我方坦克
 		t.paint(g);
-		// 子弹
+		// 循环发射子弹
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).paint(g);
 		}
-		// 敌方坦克
+		// 循环生成敌方坦克
 		for (int i = 0; i < tanks.size(); i++) {
 			tanks.get(i).paint(g);
 		}
 		
+		// 检测每一颗子弹和每一辆坦克碰撞
 		for (int i = 0; i < bullets.size(); i++) {
 			for (int j = 0; j < tanks.size(); j++) {
 				bullets.get(i).collideWith(tanks.get(j));
 			}
 		}
+		
+		// 循环生成爆炸效果
+		for (int i = 0; i < explodes.size(); i++) {
+			explodes.get(i).paint(g);
+		}
 		// 爆炸
-		explode.paint(g);
+//		e.paint(g);
 	}
 
 	// 键盘处理内部类

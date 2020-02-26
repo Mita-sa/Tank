@@ -16,7 +16,7 @@ public class Bullet {
 	private Dir dir;
 	private TankFrame tf = null;
 
-	// 子弹形状
+	// 子弹显示效果
 	public void paint(Graphics g) {
 		switch (dir) {
 		case LEFT:
@@ -61,6 +61,7 @@ public class Bullet {
 		default:
 			break;
 		}
+		
 		if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
 			liveing = false;
 		}
@@ -101,6 +102,7 @@ public class Bullet {
 			if (rect1.intersects(rect2)) {
 				tank.die();
 				this.die();
+				tf.explodes.add(new Explode(x, y, tf));
 			}
 		}
 	}

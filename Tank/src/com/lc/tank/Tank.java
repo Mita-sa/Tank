@@ -11,28 +11,28 @@ public class Tank {
 	// 坦克方向
 	private Dir dir = Dir.RIGHT;
 	// 坦克速度
-	private static final int SPEED = 1;
-	
+	private static final int SPEED = 5;
+
 	public static int WIDTH = ResourceMgr.tankD.getWidth();
 	public static int HEIGHT = ResourceMgr.tankD.getHeight();
-	
+
 	private Random random = new Random();
 	private Group group = Group.BAD;
-	
+
 	// 是否移动
 	private boolean moving = true;
 
 	private TankFrame tf;
-	
+
 	private boolean living = true;
 
-	// 上下左右操作
 	public void paint(Graphics g) {
 		// 判断是否存活
 		if (!living) {
 			// 移除坦克-防止内存泄漏
 			tf.tanks.remove(this);
 		}
+		// 坦克显示效果
 		switch (dir) {
 		case LEFT:
 			g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -49,15 +49,16 @@ public class Tank {
 		default:
 			break;
 		}
-//		g.drawImage(ResourceMgr.tankL, x, y, null);
-		
+		// g.drawImage(ResourceMgr.tankL, x, y, null);
+
 		move();
 	}
-	
-	private void move(){
-		// 默认停止 
+
+	// 上下左右操作
+	private void move() {
+		// 默认停止
 		if (!moving) {
-			return ;
+			return;
 		}
 		switch (dir) {
 		case LEFT:
@@ -76,18 +77,25 @@ public class Tank {
 		default:
 			break;
 		}
-		if (random.nextInt(10) > 7) {
+		if (group == Group.BAD && random.nextInt(100) > 95) {
 			this.fire();
 		}
+		if (group == Group.BAD && random.nextInt(100) > 95) {
+			randomDir();
+		}
+	}
+	
+	private void randomDir() {
+		this.dir = Dir.values()[random.nextInt(4)];
 	}
 
 	public void fire() {
-		int bX = this.x + Tank.WIDTH-24 - Bullet.WIDTH;
-		int bY = this.y + Tank.HEIGHT-17 - Bullet.HEIGHT;
-		
+		int bX = this.x + Tank.WIDTH - 24 - Bullet.WIDTH;
+		int bY = this.y + Tank.HEIGHT - 17 - Bullet.HEIGHT;
+
 		tf.bullets.add(new Bullet(bX, bY, dir, tf, group));
 	}
-	
+
 	public Group getGroup() {
 		return group;
 	}
@@ -108,7 +116,7 @@ public class Tank {
 		super();
 	}
 
-	public Tank(int x, int y, Dir dir, TankFrame tf,Group group) {
+	public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
 		super();
 		this.x = x;
 		this.y = y;
