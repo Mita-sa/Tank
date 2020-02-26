@@ -2,6 +2,7 @@ package com.lc.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Tank {
@@ -15,6 +16,8 @@ public class Tank {
 
 	public static int WIDTH = ResourceMgr.goodtankD.getWidth();
 	public static int HEIGHT = ResourceMgr.goodtankD.getHeight();
+	
+	Rectangle rect = new Rectangle();
 
 	private Random random = new Random();
 	private Group group = Group.BAD;
@@ -73,7 +76,8 @@ public class Tank {
 		case DOWN:
 			y += SPEED;
 			break;
-		}
+		}	
+		
 		if (group == Group.BAD && random.nextInt(100) > 95) {
 			this.fire();
 		}
@@ -81,15 +85,20 @@ public class Tank {
 			randomDir();
 		}
 		
+		// 边界检测
 		boundsCheck();
+
+		// 更新 rect
+		rect.x = this.x;
+		rect.y = this.y;
 		
 	}
 	
 	private void boundsCheck() {
-		if (x < 2) x = 2;
-		if (y < 28) y = 28;
-		if (x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
-		if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+		if (x < 3) x = 3;
+		if (y < 33) y = 33;
+		if (x > TankFrame.GAME_WIDTH - Tank.WIDTH - 3) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 3;
+		if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 3) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 3;
 	}
 
 	private void randomDir() {
@@ -130,6 +139,11 @@ public class Tank {
 		this.dir = dir;
 		this.tf = tf;
 		this.group = group;
+		
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 
 	public int getX() {
