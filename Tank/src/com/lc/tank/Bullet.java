@@ -94,15 +94,18 @@ public class Bullet {
 		if (this.group == tank.getGroup()) {
 			return;
 		} else {
+			
 			//TODO: 用一个rect来记录子弹的位置
 			// 获得子弹本身矩形
 			Rectangle rect1 = new Rectangle(x, y, WIDTH, HEIGHT);
 			Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
 			// 判断是否相交
 			if (rect1.intersects(rect2)) {
+				int eX = tank.getX() + Tank.WIDTH - 24 - Explode.WIDTH / 2;
+				int eY = tank.getY() + Tank.HEIGHT - 17 - Explode.HEIGHT / 2;
 				tank.die();
 				this.die();
-				tf.explodes.add(new Explode(x, y, tf));
+				tf.explodes.add(new Explode(eX, eY, tf));
 			}
 		}
 	}
