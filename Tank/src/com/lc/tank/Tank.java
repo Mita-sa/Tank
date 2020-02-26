@@ -11,7 +11,7 @@ public class Tank {
 	// 坦克方向
 	private Dir dir = Dir.RIGHT;
 	// 坦克速度
-	private static final int SPEED = 5;
+	private static final int SPEED = 8;
 
 	public static int WIDTH = ResourceMgr.goodtankD.getWidth();
 	public static int HEIGHT = ResourceMgr.goodtankD.getHeight();
@@ -73,9 +73,6 @@ public class Tank {
 		case DOWN:
 			y += SPEED;
 			break;
-
-		default:
-			break;
 		}
 		if (group == Group.BAD && random.nextInt(100) > 95) {
 			this.fire();
@@ -83,8 +80,18 @@ public class Tank {
 		if (group == Group.BAD && random.nextInt(100) > 95) {
 			randomDir();
 		}
+		
+		boundsCheck();
+		
 	}
 	
+	private void boundsCheck() {
+		if (x < 2) x = 2;
+		if (y < 28) y = 28;
+		if (x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+		if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+	}
+
 	private void randomDir() {
 		this.dir = Dir.values()[random.nextInt(4)];
 	}
