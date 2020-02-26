@@ -13,8 +13,8 @@ public class Tank {
 	// 坦克速度
 	private static final int SPEED = 5;
 
-	public static int WIDTH = ResourceMgr.tankD.getWidth();
-	public static int HEIGHT = ResourceMgr.tankD.getHeight();
+	public static int WIDTH = ResourceMgr.goodtankD.getWidth();
+	public static int HEIGHT = ResourceMgr.goodtankD.getHeight();
 
 	private Random random = new Random();
 	private Group group = Group.BAD;
@@ -35,16 +35,16 @@ public class Tank {
 		// 坦克显示效果
 		switch (dir) {
 		case LEFT:
-			g.drawImage(ResourceMgr.tankL, x, y, null);
+			g.drawImage(group == Group.GOOD ? ResourceMgr.goodtankL : ResourceMgr.badtankL, x, y, null);
 			break;
 		case UP:
-			g.drawImage(ResourceMgr.tankU, x, y, null);
+			g.drawImage(group == Group.GOOD ? ResourceMgr.goodtankU : ResourceMgr.badtankU, x, y, null);
 			break;
 		case RIGHT:
-			g.drawImage(ResourceMgr.tankR, x, y, null);
+			g.drawImage(group == Group.GOOD ? ResourceMgr.goodtankR : ResourceMgr.badtankR, x, y, null);
 			break;
 		case DOWN:
-			g.drawImage(ResourceMgr.tankD, x, y, null);
+			g.drawImage(group == Group.GOOD ? ResourceMgr.goodtankD : ResourceMgr.badtankD, x, y, null);
 			break;
 		default:
 			break;
