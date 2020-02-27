@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Bullet {
-	private static final int SPEED = 10;
+	
+	// 初始化子弹速度-配置文件
+	final int SPEED = Integer.parseInt(PropertyMgr.get("BulletSpeed"));
+	
+//	private static final int SPEED = 13;
 	public static int WIDTH = ResourceMgr.bulletD.getWidth();
 	public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
