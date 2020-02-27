@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
+	
+	// 窗体大小-配置文件
+	static final int GAME_WIDTH = Integer.parseInt(PropertyMgr.get("GameWidth"));
+	static final int GAME_HEIGHT = Integer.parseInt(PropertyMgr.get("GameHeight"));
 
 	Tank t = new Tank(300, 400, Dir.RIGHT, this,Group.GOOD);
 	List<Bullet> bullets = new ArrayList<>();
@@ -20,7 +24,7 @@ public class TankFrame extends Frame {
 	Explode e = new Explode(100, 100, this);
 	
 	// Bullet b = new Bullet(300, 300, Dir.DOWN);
-	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+//	static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
 	// 窗体页面
 	public TankFrame() {

@@ -7,12 +7,15 @@ import java.util.Random;
 
 public class Tank {
 
+	// 初始化坦克速度-配置文件
+	final int SPEED = Integer.parseInt(PropertyMgr.get("TankSpeed"));
+	
 	// 坦克坐标
 	private int x, y;
 	// 坦克方向
 	private Dir dir = Dir.RIGHT;
 	// 坦克速度
-	private static final int SPEED = 8;
+//	private static final int SPEED = 8;
 
 	public static int WIDTH = ResourceMgr.goodtankD.getWidth();
 	public static int HEIGHT = ResourceMgr.goodtankD.getHeight();
@@ -168,10 +171,6 @@ public class Tank {
 
 	public void setDir(Dir dir) {
 		this.dir = dir;
-	}
-
-	public static int getSpeed() {
-		return SPEED;
 	}
 
 	public void die() {
