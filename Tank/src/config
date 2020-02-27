@@ -1,10 +1,2 @@
-# 敌方坦克数量
+#tanks count at initialization
 initTankCount=10
-# 坦克速度
-TankSpeed=8
-# 子弹速度
-BulletSpeed=13
-# 游戏界面宽度
-GameWidth=1080
-# 游戏界面高度
-GameHeight=960
