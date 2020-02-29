@@ -135,7 +135,7 @@ public class Tank {
 		super();
 	}
 
-	public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
+	public Tank(int x, int y, Dir dir, TankFrame tf, Group group){
 		super();
 		this.x = x;
 		this.y = y;
@@ -151,10 +151,20 @@ public class Tank {
 		// 由于敌我坦克都会受影响，那我们就做判断
 		if (group == group.GOOD) {
 			// 发射四发子弹
-			fs = new FourDirFireStrategy();
+			String goodFSName = (String)PropertyMgr.get("goodFS");
+			try {
+				fs = (FireStrategy)Class.forName(goodFSName).newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}else {
 			// 发射一发子弹
-			fs = new DefaultFireStrategy(); 
+			String badFS = (String)PropertyMgr.get("badFS");
+			try {
+				fs = (FireStrategy)Class.forName(badFS).newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -8,3 +8,6 @@ BulletSpeed=13
 GameWidth=1080
 # 游戏界面高度
 GameHeight=960
+# 发射策略
+goodFS=com.lc.tank.FourDirFireStrategy
+badFS=com.lc.tank.DefaultFireStrategy
