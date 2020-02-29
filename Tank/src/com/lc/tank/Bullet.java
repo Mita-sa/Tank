@@ -87,8 +87,10 @@ public class Bullet {
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		
+		tf.bullets.add(this);
 	}
-
+	
 	public Bullet() {
 		super();
 	}
@@ -126,4 +128,13 @@ public class Bullet {
 	private void die() {
 		this.liveing = false;
 	}
+
+	public TankFrame getTf() {
+		return tf;
+	}
+
+	public void setTf(TankFrame tf) {
+		this.tf = tf;
+	}
+	
 }

@@ -6,6 +6,9 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 public class Tank {
+	
+	// 开火-策略模式优化
+	FireStrategy fs;
 
 	// 初始化坦克速度-配置文件
 	final int SPEED = Integer.parseInt(PropertyMgr.get("TankSpeed"));
@@ -109,10 +112,7 @@ public class Tank {
 	}
 
 	public void fire() {
-		int bX = this.x + Tank.WIDTH - 24 - Bullet.WIDTH;
-		int bY = this.y + Tank.HEIGHT - 17 - Bullet.HEIGHT;
-
-		tf.bullets.add(new Bullet(bX, bY, dir, tf, group));
+		fs.fire(this);
 	}
 
 	public Group getGroup() {
@@ -147,6 +147,15 @@ public class Tank {
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		
+		// 由于敌我坦克都会受影响，那我们就做判断
+		if (group == group.GOOD) {
+			// 发射四发子弹
+			fs = new FourDirFireStrategy();
+		}else {
+			// 发射一发子弹
+			fs = new DefaultFireStrategy(); 
+		}
 	}
 
 	public int getX() {
@@ -176,4 +185,13 @@ public class Tank {
 	public void die() {
 		this.living = false;
 	}
+
+	public TankFrame getTf() {
+		return tf;
+	}
+
+	public void setTf(TankFrame tf) {
+		this.tf = tf;
+	}
+	
 }

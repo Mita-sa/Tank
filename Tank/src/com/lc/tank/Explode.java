@@ -28,8 +28,6 @@ public class Explode {
 		this.y = y;
 		this.tf = tf;
 		
-		// 加入声音
-//		new Audio("audio/start.wav").run();
 	}
 
 	public Explode() {
